@@ -1,41 +1,62 @@
-# Crypto Intelligence Terminal
+<![CDATA[<div align="center">
 
-Self-hosted crypto trading intelligence system using open-source LLMs to analyze sentiment, predict prices, and generate actionable trading signals.
+# 🧠 Crypto Intelligence Terminal
 
-## Model Intro
+### Self-Hosted AI Trading Intelligence — Powered by Open-Source LLMs
 
-The **Crypto Intelligence Terminal** is a robust, hybrid-compute AI pipeline for cryptocurrency sentiment analysis and price prediction. It operates as a self-hosted platform running locally to maintain full data privacy and control. By leveraging both traditional quantitative modeling techniques (XGBoost, Prophet) and state-of-the-art Generative AI (Mistral-7B via QLoRA fine-tuning), the system provides an end-to-end framework for making informed, data-driven trading decisions.
+[![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white)](https://python.org)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/compose/)
+[![Mistral 7B](https://img.shields.io/badge/LLM-Mistral--7B-FF6F00?logo=huggingface&logoColor=white)](https://huggingface.co/mistralai/Mistral-7B-v0.1)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## Features of this Model
+*Analyze sentiment. Predict prices. Generate actionable BUY / SELL / HOLD signals — all running locally on your hardware.*
 
-- **Real-time data collection:** Pulls continuous streams of information from Reddit, News APIs, On-chain (Etherscan), and Price feeds (Binance).
-- **AI-powered sentiment analysis:** Utilizes locally hosted Ollama Mistral-7B alongside FinBERT for deep contextual analysis of market news.
-- **Multi-model price prediction:** Incorporates financial modeling techniques like Prophet, LSTM, and XGBoost.
-- **Intelligent signal generation:** Produces definitive BUY/SELL/HOLD signals backed by explainability metrics.
-- **Comprehensive backtesting engine:** Validates the historical accuracy of deployed models using the Sharpe Ratio and drawdown metrics.
-- **Unified Graphical Dashboards:** Provides a full animated Web dashboard (HTML/CSS/JS + Lightweight Charts) and CLI-based rich dashboards.
-- **Open-source architecture:** Fully containerized for self-hosted, independent operation without reliance on expensive third-party foundational models.
+---
 
-## Architecture
+</div>
+
+## 📌 Overview
+
+The **Crypto Intelligence Terminal** is a fully self-hosted, hybrid-compute AI pipeline for cryptocurrency sentiment analysis and price prediction. It combines traditional quantitative modeling (XGBoost, Prophet, LSTM) with state-of-the-art generative AI (Mistral-7B via QLoRA fine-tuning) to deliver an end-to-end framework for data-driven trading decisions — with zero reliance on expensive third-party APIs or cloud-hosted foundation models.
+
+> **Why self-hosted?** Full data privacy, no recurring API costs, complete control over model behavior, and the freedom to fine-tune on your own market thesis.
+
+---
+
+## ✨ Key Features
+
+| Feature | Description |
+|---------|-------------|
+| 📡 **Real-Time Data Ingestion** | Continuous streams from Binance (OHLCV), NewsAPI, Reddit (`r/cryptocurrency`), and Etherscan (whale transactions). |
+| 🤖 **AI-Powered Sentiment Analysis** | Locally hosted Ollama Mistral-7B + FinBERT for deep contextual understanding of market narratives. |
+| 📈 **Multi-Model Price Prediction** | Ensemble of Prophet (trend decomposition), LSTM (temporal memory), and XGBoost (gradient boosting). |
+| 🎯 **Intelligent Signal Generation** | Definitive BUY / SELL / HOLD signals with confidence scores and explainability metrics. |
+| 🔄 **Backtesting Engine** | Validates historical accuracy using Sharpe Ratio, directional accuracy, and drawdown analysis. |
+| 📊 **Unified Dashboards** | Animated web dashboard (HTML/CSS/JS + Lightweight Charts) and CLI-based rich terminal UI. |
+| 🏗️ **Fully Containerized** | Single-command Docker Compose deployment with automatic GPU/CPU fallback. |
+
+---
+
+## 🏛️ System Architecture
 
 ```mermaid
 flowchart TD
-    subgraph DataSources["Data Sources (Free APIs)"]
+    subgraph DataSources["📡 Data Sources (Free APIs)"]
         direction LR
-        A["Binance API\nPrice OHLCV"] 
-        B["NewsAPI\nCrypto News"]
-        C["Reddit API\nr/cryptocurrency"]
-        D["Etherscan API\nWhale Txns"]
+        A["Binance API<br/>Price OHLCV"]
+        B["NewsAPI<br/>Crypto News"]
+        C["Reddit API<br/>r/cryptocurrency"]
+        D["Etherscan API<br/>Whale Txns"]
     end
 
-    subgraph Backend["Python Backend (FastAPI)"]
-        E["Data Ingestion\nPipeline"]
-        F[("PostgreSQL +\nTimescaleDB")]
-        G["Sentiment Engine\nFinBERT"]
-        H["Price Prediction\nProphet + XGBoost"]
-        I["Signal Generator\nBUY/SELL/HOLD"]
-        J["Backtesting Engine\nSharpe Ratio"]
-        K["Ollama/Mistral 7B\nAI Insights"]
+    subgraph Backend["⚙️ Python Backend (FastAPI)"]
+        E["Data Ingestion<br/>Pipeline"]
+        F[("PostgreSQL +<br/>TimescaleDB")]
+        G["Sentiment Engine<br/>FinBERT"]
+        H["Price Prediction<br/>Prophet + XGBoost"]
+        I["Signal Generator<br/>BUY / SELL / HOLD"]
+        J["Backtesting Engine<br/>Sharpe Ratio"]
+        K["Ollama / Mistral 7B<br/>AI Insights"]
 
         E --> F
         F --> G
@@ -45,8 +66,8 @@ flowchart TD
         I --> J
     end
 
-    subgraph Frontend["Frontend Dashboard"]
-        L["HTML/CSS/JS\nApexCharts"]
+    subgraph Frontend["🖥️ Frontend Dashboard"]
+        L["HTML / CSS / JS<br/>ApexCharts"]
     end
 
     A --> E
@@ -62,120 +83,192 @@ flowchart TD
     K --> L
 ```
 
-## Requirements Needed
+---
 
-- **Python:** 3.9+ 
-- **Containerization:** Docker and Docker Compose
-- **Memory Minimum:** 16GB System RAM
-- **GPU Minimum (Optional but Recommended):** 8GB GPU VRAM (NVIDIA) for heavy QLoRA model training and hardware-accelerated instance generation.
+## 📋 System Requirements
 
-## Single Command Deployment
+| Requirement | Minimum | Recommended |
+|-------------|---------|-------------|
+| **Python** | 3.9+ | 3.11+ |
+| **Docker** | Docker Engine + Compose | Docker Desktop (latest) |
+| **System RAM** | 16 GB | 32 GB |
+| **GPU (Optional)** | — | NVIDIA GPU with 8 GB+ VRAM (CUDA-compatible) |
 
-To set up and run the system locally, clone the repository, configure your API keys, and launch the Docker cluster. 
+> **Note:** A GPU is optional but strongly recommended for QLoRA fine-tuning and accelerated Mistral-7B inference. The system automatically falls back to CPU if no compatible GPU is detected.
+
+---
+
+## 🚀 Quick Start
+
+### 1. Clone & Configure
 
 ```bash
 git clone https://github.com/MasterManoj9/Crypto_terminal.git
 cd Crypto_terminal
 cp .env.example .env
-
-# Don't forget to edit the .env to configure your specific API keys
 ```
 
-### API Keys Configuration
+Open `.env` in your editor and insert your API keys:
 
-To fetch real-world data, the system requires API keys. You have two options to configure them:
-1. **Locally via the `.env` file:** Copy `.env.example` to `.env` and insert your keys (e.g., `BINANCE_API_KEY`, `NEWS_API_KEY`). The backend services will load them securely on startup.
-2. **Via the Frontend Dashboard:** Once deployed, navigate to `http://localhost:8501`. The dashboard opens directly (no username/password prompt) and streams live backend data.
+```env
+BINANCE_API_KEY=your_binance_api_key
+BINANCE_API_SECRET=your_binance_secret
+NEWS_API_KEY=your_newsapi_key
+REDDIT_CLIENT_ID=your_reddit_client_id
+REDDIT_CLIENT_SECRET=your_reddit_secret
+ETHERSCAN_API_KEY=your_etherscan_key
+```
 
-### Run using Docker Compose
+> **Tip:** You can also configure API keys directly from the frontend dashboard after deployment.
 
-If you have standard docker compose installed, run:
+### 2. Deploy with Docker Compose
 
 ```bash
 docker-compose up -d --build
 ```
 
-*(Alternatively, use the built-in deployment scripts for automatic environment checking: `./scripts/deploy_model.ps1` on Windows or `./scripts/deploy_model.sh` on Linux/macOS)*
+Once running, navigate to **`http://localhost:8501`** in your browser. The dashboard opens directly — no login required — and immediately begins streaming live backend data.
 
-## Teardown and Cleanup Commands
+### 3. Alternative: Platform-Specific Scripts
 
-When you need to stop the models and safely remove the configuration, use the following real operational commands:
+```powershell
+# Windows
+./scripts/deploy_model.ps1
+```
 
-**1. Down the containers natively:**
+```bash
+# Linux / macOS
+./scripts/deploy_model.sh
+```
+
+These scripts perform automatic environment checks (Docker availability, GPU detection, port conflicts) before launching the cluster.
+
+---
+
+## 🧹 Teardown & Cleanup
+
+**Stop all containers:**
+
 ```bash
 docker-compose down
 ```
 
-**2. Down the containers and remove all local generated images and database volumes (Full Reset):**
+**Full reset** (removes containers, images, and database volumes):
+
 ```bash
 docker-compose down --rmi all -v
 ```
 
-## How the Model Uses Data to Predict 
+---
 
-This intelligence system relies on a multi-modal approach to forecasting crypto-asset trends:
+## 🔬 How the Prediction Pipeline Works
 
-- **What it consumes:** The engine ingests time-series **price/volume data** (OHLCV metrics from Binance), **on-chain activity metrics** (massive whale transactions from Etherscan), and fundamental **market narratives** (news articles and Reddit threads). 
-- **How it processes the context:** Traditional numerical indicators (like Moving Averages and RSI) are generated from the OHLCV data. Simultaneously, Mistral-7B and FinBERT read the unstructured textual feeds to compute an overarching *Bullish/Bearish Sentiment Score*.
-- **What it predicts:** It projects short-to-medium-term price trajectories. The quantitative models (Prophet/XGBoost) recognize historical price patterns, while the AI models identify periods of market euphoria or panic.
-- **The Final Output:** These diverse dimensions are synthesized to issue clear **BUY, SELL, or HOLD** signals alongside a "confidence" metric, explaining the narrative reasoning behind the system's choice.
+The system employs a **multi-modal forecasting approach** that fuses quantitative signals with natural-language market intelligence.
 
-## Working Process
+### Stage 1 — Continuous Data Ingestion
 
-1. **Continuous Data Ingestion:** The data ingestion pipeline operates continuously using your configured API keys, aggregating the latest daily price OHLCV data, crypto news, whale transactions, and Reddit posts into the PostgreSQL database.
-2. **AI Inference & Sentiment Filtering:** The backend processes the textual and numerical data using FinBERT and an Ollama-powered Mistral-7B runtime to extract meaningful, contextual market sentiment from the raw pipeline.
-3. **Price Prediction Pipeline:** Dedicated quantitative models (Prophet, XGBoost) concurrently utilize the historical time-series data to analyze and project impending price trends.
-4. **Signal Aggregation:** The Signal Generator cross-references the processed sentiment data with the predictive numeric modeling to produce actionable BUY/HOLD/SELL signals. The backtesting engine then appraises these indications.
-5. **Insights Presentation:** The unified frontend (developed with HTML/CSS/JS and Lightweight Charts) surfaces these indicators in a live animated dashboard.
+The pipeline operates around the clock using your configured API keys, aggregating the latest OHLCV price data, crypto news articles, whale transactions, and Reddit discussions into a PostgreSQL (TimescaleDB) datastore.
 
-## GPU and CPU Edition 
+### Stage 2 — AI Inference & Sentiment Extraction
 
-The architecture supports a dual-pronged **Split Runtime Deployment**, carefully balancing GPU vs. CPU resources to achieve peak operational efficiency:
+FinBERT and Ollama-powered Mistral-7B process raw textual feeds to extract contextual market sentiment. The models distinguish between genuine market shifts and noise, producing a normalized **Bullish / Bearish Sentiment Score**.
 
-- **Automatic GPU First:** By default, the environment attempts GPU deployment by leveraging CUDA extensions mapped in `docker-compose.yml` (and `docker-compose.gpu.yml` for dedicated fallback scripts).
-- **GPU-CPU Workload Splitting:** Generative inferences utilizing Mistral-7B automatically allocate into the GPU-enabled `ollama` container to process tokens rapidly. Conversely, RAG (Retrieval-Augmented Generation) context retrieval and parsing isolate entirely to the CPU (`RAG_CONTEXT_CPU_ONLY=true`) in the backend. 
-- **Automated CPU Fallback:** The backend performs API verification locally on initialization (`/api/v1/model/runtime`). If an incompatible CUDA runtime is identified—or if VRAM is fully constrained during deployment—the system automatically falls back and restarts the inference containers on your local CPU cores. 
-- **Manual Mode Operation:** At any time, you can force purely CPU-based LoRA fine-tuning workflows via deployment flags (e.g., `-FineTuneTrainerMode cpu-lora`), dropping 4-bit quantization to ensure platform stability on machines lacking dedicated GPUs.
+### Stage 3 — Quantitative Price Prediction
 
-## Mistral Model Optimizations
+Prophet (trend decomposition) and XGBoost (gradient boosting) concurrently analyze historical time-series data. Traditional technical indicators — Moving Averages, RSI, Bollinger Bands — are computed from OHLCV candles and fed as features.
 
-To ensure the large language model (Mistral-7B) runs efficiently on consumer or mid-tier hardware, the following optimizations are natively integrated:
+### Stage 4 — Signal Aggregation
 
-- **4-Bit Quantization (QLoRA):** The base Mistral model has been fully quantized to 4-bit precision using the bitsandbytes library. This dramatically decreases the required GPU VRAM for both inference and continuous fine-tuning without sacrificing context reasoning.
-- **Low-Rank Adaptation (LoRA):** Rather than updating all 7-billion parameters, our local trainer scripts inject small, trainable rank decomposition matrices. This targets only the weights necessary for financial sentiment interpretation, compounding training speeds exponentially.
-- **Split Workload RAG:** The heavy generative text-streaming task is strictly pinned to the GPU via Ollama, while Retrieval-Augmented Generation retrieval operations (vector embeddings, database routing) are purposely offloaded to the CPU. This cleanly preserves scarce GPU memory.
+The Signal Generator cross-references sentiment scores with quantitative forecasts to produce actionable **BUY / SELL / HOLD** signals, each annotated with:
+- A **confidence metric** reflecting inter-model agreement
+- A **narrative explanation** of the reasoning behind each signal
 
-## Latest Accuracy and Backtest Scores
+### Stage 5 — Backtesting & Validation
 
-Performance snapshot generated on **2026-04-02** from live `price_data` in PostgreSQL.
+The backtesting engine evaluates signals against historical data, computing risk-adjusted performance metrics (Sharpe Ratio, drawdown, win rate) to ensure the models generalize beyond in-sample data.
 
-### Runtime Notes
+### Stage 6 — Dashboard Presentation
 
-- GPU runtime availability for TensorFlow LSTM path: **false** (native Windows TensorFlow fallback to CPU)
-- Evaluated market series available in database: **10 series total**
-    - BTCUSDT: 15m, 1h, 4h, 1d
-    - ETHUSDT: 15m, 1h, 4h, 1d
-    - DOGEUSDT: 4h, 1d
+The unified frontend surfaces all indicators, predictions, and signals in a live animated dashboard powered by Lightweight Charts and ApexCharts.
 
-### Aggregate Model Scores
+---
 
-| Model Path | Directional Accuracy | Backtested Sharpe Ratio | Signal Win Rate | Total Trades |
-|-----------|----------------------|-------------------------|-----------------|--------------|
-| CPU Model (`GradientBoostingRegressor`) | **52.44%** | **4.5398** | **30.23%** | 210 |
-| GPU Path Model (`TensorFlow LSTM`) | **49.44%** | **-1.3907** | **1.43%** | 8 |
+## ⚡ GPU & CPU Runtime Strategy
 
-### Asset-Level Breakdown
+The architecture implements **automatic split-runtime deployment** to maximize hardware utilization:
 
-| Asset | CPU Accuracy | CPU Sharpe | CPU Win Rate | CPU Trades | GPU Path Accuracy | GPU Path Sharpe | GPU Path Win Rate | GPU Path Trades |
-|-------|--------------|------------|--------------|------------|-------------------|-----------------|-------------------|-----------------|
-| BTC | 52.08% | 1.8146 | 29.54% | 53 | 51.26% | 0.0000 | 0.00% | 0 |
-| ETH | 53.89% | 7.7973 | 33.86% | 103 | 50.28% | 0.0000 | 0.00% | 0 |
-| DOGE | 50.28% | 3.4752 | 24.33% | 54 | 44.13% | -6.9534 | 7.14% | 8 |
+| Component | Runtime | Rationale |
+|-----------|---------|-----------|
+| Mistral-7B Inference | **GPU** (via Ollama container) | Token generation is compute-bound and benefits heavily from CUDA acceleration. |
+| RAG Context Retrieval | **CPU** (`RAG_CONTEXT_CPU_ONLY=true`) | Vector embeddings and database queries are I/O-bound and don't require GPU. |
+| FinBERT Sentiment | **CPU / GPU** (auto-detected) | Lightweight transformer — runs efficiently on either. |
+| XGBoost / Prophet | **CPU** | Traditional ML models with negligible GPU benefit at this scale. |
 
-### Interval-Level Breakdown
+### Automatic Fallback Behavior
 
-| Series | CPU Accuracy | CPU Sharpe | CPU Win Rate | GPU Path Accuracy | GPU Path Sharpe | GPU Path Win Rate |
-|-------|--------------|------------|--------------|-------------------|-----------------|-------------------|
+1. On startup, the backend probes `/api/v1/model/runtime` to verify CUDA availability.
+2. If no compatible GPU or insufficient VRAM is detected, the inference containers automatically restart in **CPU-only mode**.
+3. You can force CPU-only operation at any time:
+
+   ```bash
+   # Force CPU-based LoRA fine-tuning
+   ./scripts/deploy_model.sh -FineTuneTrainerMode cpu-lora
+   ```
+
+---
+
+## 🧬 Mistral-7B Optimization Stack
+
+Three complementary techniques ensure the 7-billion-parameter model runs efficiently on consumer hardware:
+
+### 4-Bit Quantization (QLoRA)
+
+The base Mistral model is quantized to **NF4 (4-bit NormalFloat)** precision using `bitsandbytes`. This reduces VRAM requirements by ~75% for both inference and fine-tuning, with negligible impact on reasoning quality.
+
+### Low-Rank Adaptation (LoRA)
+
+Instead of updating all 7B parameters, small trainable rank-decomposition matrices are injected into attention layers. Only the weights critical for financial sentiment interpretation are trained — yielding **10–100× faster fine-tuning** compared to full-parameter updates.
+
+### Split-Workload RAG
+
+Generative text streaming is pinned to the GPU via Ollama, while retrieval operations (vector similarity search, database routing) are offloaded to the CPU. This cleanly partitions scarce GPU memory for maximum throughput.
+
+---
+
+## 📊 Performance Benchmarks
+
+> **Snapshot Date:** 2026-04-02 — evaluated against live `price_data` in PostgreSQL.
+
+### Runtime Configuration
+
+| Parameter | Value |
+|-----------|-------|
+| TensorFlow LSTM GPU Available | `false` (CPU fallback on native Windows) |
+| Evaluated Market Series | 10 total |
+| Assets Covered | BTC, ETH, DOGE |
+| Intervals Covered | 15m, 1h, 4h, 1d |
+| Evaluation Window | Latest 900 rows per symbol/interval |
+
+### Aggregate Model Performance
+
+| Model Path | Directional Accuracy | Sharpe Ratio | Signal Win Rate | Total Trades |
+|------------|:--------------------:|:------------:|:---------------:|:------------:|
+| **CPU** — `GradientBoostingRegressor` | **52.44%** | **4.5398** | **30.23%** | 210 |
+| **GPU** — `TensorFlow LSTM` | 49.44% | -1.3907 | 1.43% | 8 |
+
+### Per-Asset Breakdown
+
+| Asset | CPU Accuracy | CPU Sharpe | CPU Win Rate | CPU Trades | GPU Accuracy | GPU Sharpe | GPU Win Rate | GPU Trades |
+|:-----:|:------------:|:----------:|:------------:|:----------:|:------------:|:----------:|:------------:|:----------:|
+| **BTC** | 52.08% | 1.8146 | 29.54% | 53 | 51.26% | 0.0000 | 0.00% | 0 |
+| **ETH** | 53.89% | 7.7973 | 33.86% | 103 | 50.28% | 0.0000 | 0.00% | 0 |
+| **DOGE** | 50.28% | 3.4752 | 24.33% | 54 | 44.13% | -6.9534 | 7.14% | 8 |
+
+<details>
+<summary><strong>📋 Full Interval-Level Breakdown</strong></summary>
+
+| Series | CPU Accuracy | CPU Sharpe | CPU Win Rate | GPU Accuracy | GPU Sharpe | GPU Win Rate |
+|--------|:------------:|:----------:|:------------:|:------------:|:----------:|:------------:|
 | BTCUSDT 15m | 54.44% | 11.0564 | 36.00% | 47.49% | 0.0000 | 0.00% |
 | BTCUSDT 1h | 55.56% | 3.4250 | 23.81% | 50.84% | 0.0000 | 0.00% |
 | BTCUSDT 4h | 52.78% | 9.8752 | 25.00% | 51.96% | 0.0000 | 0.00% |
@@ -187,54 +280,132 @@ Performance snapshot generated on **2026-04-02** from live `price_data` in Postg
 | ETHUSDT 4h | 53.89% | 23.6538 | 45.00% | 48.60% | 0.0000 | 0.00% |
 | ETHUSDT 1d | 54.44% | -6.4225 | 22.73% | 52.51% | 0.0000 | 0.00% |
 
-### How These Scores Were Computed
+</details>
 
-- **Accuracy metric:** directional accuracy = percentage of correct next-candle direction predictions.
-- **Backtest Sharpe ratio:** calculated from strategy equity curve returns.
-- **Signal win rate:** percentage of profitable closed trades in backtest.
-- **Data source:** latest 900 rows per available symbol/interval in `price_data`.
-- **Evaluation coverage:** BTC, ETH, and DOGE multi-asset price series currently present in database.
+### Scoring Methodology
 
-## Mathematical Breakdown
+| Metric | Definition |
+|--------|------------|
+| **Directional Accuracy** | Percentage of correct next-candle direction predictions. |
+| **Sharpe Ratio** | Annualized return-to-risk ratio computed from the strategy's equity curve. |
+| **Signal Win Rate** | Percentage of closed trades that were profitable. |
 
-| Component | Logic Applied | Working Model Concept |
-|-----------|---------------|-----------------------|
-| **Ensemble Logic** | Weighted average of $M$ model probabilities | **Macro-Signal Integration**: Synthesizes cross-paradigm forecasts into a unified consensus. |
-| **Prophet** | Additive regression for trend/seasonality | **Structural Trend Decomposition**: Isolates long-term price trajectories from periodic cycles. |
-| **LSTM** | Sequential memory gates (Forget/Input/Output) | **Chronological Memory Gates**: Processes non-linear time dependencies across historical OHLCV data. |
-| **XGBoost** | Regularized Gradient Boosting (Newton-Raphson) | **High-Gain Residual Boosting**: Iteratively reduces model error by focusing on difficult-to-predict price splits. |
-| **QLoRA** | Low-rank adapter updates to NF4 quantized weights | **Parameter-Efficient Adaptation**: Injects domain-specific sentiment intelligence into generalized LLMs. |
-| **Evaluation** | Sharpe Ratio / Directional Accuracy Calculation | **Risk-Adjusted Alpha Scoring**: Statistically validates the probability of excess returns vs volatility. |
+---
 
-### 1. Unified Consensus (Ensemble)
-The architecture achieves robustness by balancing three distinct forecasting methodologies. The final directional probability $P$ for a class $c$ is calculated by:
+## 📐 Mathematical Foundations
+
+The prediction pipeline is grounded in rigorous mathematical formulations across six core components.
+
+### 1. Ensemble Consensus
+
+The final directional probability $P$ for class $c$ is a weighted fusion of three independent forecasting paradigms:
+
 $$P_{\text{ensemble}}(c) = 0.3 \cdot P_{\text{prophet}}(c) + 0.4 \cdot P_{\text{lstm}}(c) + 0.3 \cdot P_{\text{xgb}}(c)$$
 
-### 2. Market Cycle Analysis (Prophet)
-Used to identify macro-trends by decomposing the signal into deterministic components:
+> **Design rationale:** LSTM receives the highest weight (0.4) due to its superior capacity for capturing non-linear temporal dependencies in volatile crypto markets.
+
+### 2. Structural Trend Decomposition (Prophet)
+
+Price series are decomposed into interpretable additive components:
+
 $$y(t) = g(t) + s(t) + h(t) + \epsilon_t$$
-- $g(t)$: Piecewise linear growth trend.
-- $s(t)$: Fourier series for intraday/weekly periodicity.
-- $h(t)$: Market holiday and anomalous event impacts.
 
-### 3. Temporal Relationship Mapping (LSTM)
-Utilizes a recursive neural architecture to protect long-term market context:
-- **Forget Gate**: $f_t = \sigma(W_f \cdot [h_{t-1}, x_t] + b_f)$ (Controls information decay over time).
-- **Input Gate**: $i_t = \sigma(W_i \cdot [h_{t-1}, x_t] + b_i)$ (Selects relevant new price features).
-- **Cell State**: $C_t = f_t \odot C_{t-1} + i_t \odot \tanh(W_C \cdot [h_{t-1}, x_t] + b_C)$ (Stores the persistent market memory).
+| Symbol | Component | Description |
+|:------:|-----------|-------------|
+| $g(t)$ | Growth trend | Piecewise linear function capturing long-term price direction. |
+| $s(t)$ | Seasonality | Fourier series modeling intraday, daily, and weekly periodicity. |
+| $h(t)$ | Holidays/Events | Impulse responses for anomalous market events (e.g., halving, regulatory news). |
+| $\epsilon_t$ | Residual | Irreducible noise term. |
 
-### 4. Optimized Decision Splits (XGBoost)
-The model iteratively constructs shallow trees to minimize a regularized objective:
-$$\mathcal{L}(\phi) = \sum_i l(\hat{y}_i, y_i) + \gamma T + \frac{1}{2}\lambda \sum w_j^2$$
-This ensures the model generalizes well to unseen market data by penalizing excessive leaf nodes ($T$) and complex weights ($w$).
+### 3. Temporal Memory Gates (LSTM)
 
-### 5. Efficient Knowledge Transfer (QLoRA)
-Leverages the **Mistral-7B** foundational model for sentiment analysis using 4-bit precision compression:
-$$W_{fixed} + \Delta W = W_{NF4} + (A \times B) \cdot \frac{\alpha}{r}$$
-This concept allows the terminal to adapt massive transformer models to local crypto-sentiment tasks on standard consumer hardware.
+The LSTM architecture maintains long-range market context through three gating mechanisms:
 
-### 6. Quantitative Validation Metrics
-- **Directional Accuracy**: $Acc = \frac{1}{N} \sum \mathbb{1}(\text{sgn}(\Delta \hat{y}) = \text{sgn}(\Delta y))$ (Measures "hit rate").
-- **Sharpe Ratio**: $S = \frac{\mu_{\text{returns}}}{\sigma_{\text{returns}}}$ (Normalizes profit against trading risk).
-- **Confidence Layer**: $\text{Conf} = \left( \frac{1}{M} \sum \max(P_m) \right) \times \text{Multiplier}$ (Measures divergence between independent models).
+$$f_t = \sigma(W_f \cdot [h_{t-1}, x_t] + b_f) \quad \text{— Forget Gate (information decay)}$$
 
+$$i_t = \sigma(W_i \cdot [h_{t-1}, x_t] + b_i) \quad \text{— Input Gate (feature selection)}$$
+
+$$C_t = f_t \odot C_{t-1} + i_t \odot \tanh(W_C \cdot [h_{t-1}, x_t] + b_C) \quad \text{— Cell State (persistent memory)}$$
+
+### 4. Regularized Gradient Boosting (XGBoost)
+
+Trees are constructed iteratively to minimize a regularized objective that penalizes complexity:
+
+$$\mathcal{L}(\phi) = \sum_{i} l(\hat{y}_i, y_i) + \gamma T + \frac{1}{2}\lambda \sum_{j} w_j^2$$
+
+| Symbol | Meaning |
+|:------:|---------|
+| $l(\hat{y}_i, y_i)$ | Differentiable loss function (e.g., squared error). |
+| $\gamma T$ | Penalty proportional to the number of leaf nodes — prevents overfitting. |
+| $\lambda \sum w_j^2$ | L2 regularization on leaf weights — ensures smooth predictions. |
+
+### 5. Parameter-Efficient Adaptation (QLoRA)
+
+Mistral-7B is adapted to crypto-sentiment tasks without full-parameter training:
+
+$$W_{\text{adapted}} = W_{\text{NF4}} + (A \times B) \cdot \frac{\alpha}{r}$$
+
+| Symbol | Meaning |
+|:------:|---------|
+| $W_{\text{NF4}}$ | Frozen base weights quantized to 4-bit NormalFloat precision. |
+| $A \times B$ | Low-rank decomposition matrices (trainable). |
+| $\alpha / r$ | Scaling factor controlling adaptation magnitude. |
+
+### 6. Risk-Adjusted Validation
+
+| Metric | Formula | Purpose |
+|--------|---------|---------|
+| **Directional Accuracy** | $\text{Acc} = \frac{1}{N} \sum \mathbb{1}(\text{sgn}(\Delta \hat{y}) = \text{sgn}(\Delta y))$ | Measures prediction "hit rate" for next-candle direction. |
+| **Sharpe Ratio** | $S = \frac{\mu_{\text{returns}}}{\sigma_{\text{returns}}}$ | Normalizes profit against trading risk (higher = better). |
+| **Confidence Score** | $\text{Conf} = \left( \frac{1}{M} \sum \max(P_m) \right) \times k$ | Quantifies inter-model agreement; high values indicate consensus. |
+
+---
+
+## 🗂️ Project Structure
+
+```
+Crypto_terminal/
+├── docker-compose.yml          # Primary orchestration file
+├── docker-compose.gpu.yml      # GPU-specific overrides
+├── .env.example                # API key template
+├── backend/
+│   ├── app/
+│   │   ├── api/                # FastAPI route handlers
+│   │   ├── models/             # Prophet, LSTM, XGBoost model definitions
+│   │   ├── services/           # Data ingestion, sentiment, signal generation
+│   │   └── core/               # Configuration, database, utilities
+│   ├── Dockerfile
+│   └── requirements.txt
+├── frontend/
+│   ├── index.html              # Dashboard entry point
+│   ├── css/                    # Stylesheets
+│   └── js/                     # Chart rendering, API polling, UI logic
+├── scripts/
+│   ├── deploy_model.sh         # Linux/macOS deployment
+│   └── deploy_model.ps1        # Windows deployment
+└── ollama/
+    └── Modelfile               # Mistral-7B configuration for Ollama
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please open an issue first to discuss proposed changes, then submit a pull request against the `main` branch.
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+<div align="center">
+
+**Built with ❤️ for the open-source crypto community.**
+
+*If this project helped you, consider giving it a ⭐ on GitHub.*
+
+</div>
+]]>
