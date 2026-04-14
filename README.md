@@ -74,7 +74,7 @@ flowchart TD
 To set up and run the system locally, clone the repository, configure your API keys, and launch the Docker cluster. 
 
 ```bash
-git clone https://github.com/Ratnachand04/FINBIN.git
+git clone https://github.com/MasterManoj9/Crypto_terminal.git
 cd FINBIN
 cp .env.example .env
 
