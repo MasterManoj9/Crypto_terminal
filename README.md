@@ -75,7 +75,7 @@ To set up and run the system locally, clone the repository, configure your API k
 
 ```bash
 git clone https://github.com/MasterManoj9/Crypto_terminal.git
-cd FINBIN
+cd Crypto_terminal
 cp .env.example .env
 
 # Don't forget to edit the .env to configure your specific API keys
